@@ -26,7 +26,7 @@ public class Zadanie6 {
     public static void readFromFile(){
         List<String> lines = new ArrayList<>();
         try{
-            File file = new File("E:\\JavaProjects\\Laby Backend\\lab_backEnd\\Lab01\\src\\com\\company\\Zad6.txt");
+            File file = new File("src\\com\\company\\Zad6.txt");
 
             Scanner scanner = new Scanner(file);
             while(scanner.hasNextLine()){
