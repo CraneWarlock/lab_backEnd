@@ -3,7 +3,7 @@
     public class Warehouse
     {
         public int Id { get; set; }
-        public string Name { get; set; }
+        public string WarehouseName { get; set; }
         public string Description { get; set; }
         public StorageType StorageType { get; set; }
         public decimal CurrentCapacity { get; set; }

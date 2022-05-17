@@ -3,7 +3,7 @@
     public class WarehouseCargo
     {
         public int Id { get; set; }
-        public string Name { get; set; }
+        public string CargoName { get; set; }
         public CargoType CargoType { get; set; }
         public decimal Volume { get; set; }
         public string Description { get; set; }
