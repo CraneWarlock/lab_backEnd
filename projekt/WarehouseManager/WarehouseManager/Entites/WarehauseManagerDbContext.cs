@@ -1,5 +1,4 @@
-﻿
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace WarehouseManager.Entites
 {
@@ -68,6 +67,11 @@ namespace WarehouseManager.Entites
             modelBuilder.Entity<WarehouseCargo>()
                 .Property(r => r.Volume)
                 .IsRequired();
+        }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlServer(_dbConnectionString);
         }
     }
 }
