@@ -10,5 +10,6 @@
         public string ZipCode{ get; set; }
         public int CompanyId { get; set; }
         public virtual Company Company { get; set; }
+        public virtual List<Warehouse> Warehouses { get; set; }
     }
 }
