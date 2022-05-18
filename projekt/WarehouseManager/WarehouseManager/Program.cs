@@ -1,3 +1,4 @@
+using WarehouseManager;
 using WarehouseManager.Entites;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,6 +11,12 @@ builder.Services.AddDbContext<WarehauseManagerDbContext>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
+
+using (var scope = app.Services.CreateScope())
+{
+    var seeder = scope.ServiceProvider.GetRequiredService<dbSeeder>();
+    seeder.Seed();
+}
 
 app.UseHttpsRedirection();
 
