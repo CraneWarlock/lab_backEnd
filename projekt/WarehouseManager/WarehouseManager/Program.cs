@@ -7,6 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddDbContext<WarehauseManagerDbContext>();
+builder.Services.AddScoped<dbSeeder>();
 
 var app = builder.Build();
 

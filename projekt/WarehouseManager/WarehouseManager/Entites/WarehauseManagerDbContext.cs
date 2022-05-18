@@ -25,6 +25,10 @@ namespace WarehouseManager.Entites
                 .IsRequired()
                 .HasMaxLength(50);
 
+            modelBuilder.Entity<Company>()
+                .Property(r => r.Description)
+                .IsRequired();
+
             //Location
             modelBuilder.Entity<Location>()
                 .Property(r => r.LocationName)
