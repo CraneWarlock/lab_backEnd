@@ -62,5 +62,13 @@ namespace WarehouseManager.Services
             return companiesDtos;
         }
 
+        public int Create(CreateCompanyDto dto)
+        {
+            var company = _mapper.Map<Company>(dto);
+            _dbContext.Companies.Add(company);
+            _dbContext.SaveChanges();
+            return company.Id;
+        }
+
     }
 }
