@@ -5,6 +5,15 @@ using WarehouseManager.Models;
 
 namespace WarehouseManager.Services
 {
+    public interface ICompanyService
+    {
+        CompanyDto GetById(int id);
+        IEnumerable<CompanyDto> GetAll();
+        int Create(CreateCompanyDto dto);
+        bool Delete(int id);
+        bool Update(int id, UpdateCompanyDto dto);
+    }
+
     public class CompanyService
     {
         private readonly WarehauseManagerDbContext _dbContext;
