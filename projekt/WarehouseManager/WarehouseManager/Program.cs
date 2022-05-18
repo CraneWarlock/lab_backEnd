@@ -1,5 +1,7 @@
+using System.Reflection;
 using WarehouseManager;
 using WarehouseManager.Entites;
+using WarehouseManager.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,6 +10,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddDbContext<WarehauseManagerDbContext>();
 builder.Services.AddScoped<dbSeeder>();
+builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
+builder.Services.AddScoped<ICompanyService, CompanyService>();
 
 var app = builder.Build();
 

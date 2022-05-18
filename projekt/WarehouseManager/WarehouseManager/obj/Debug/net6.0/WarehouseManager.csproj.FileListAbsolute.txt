@@ -54,3 +54,5 @@ E:\JavaProjects\Laby Backend\lab_backEnd\projekt\WarehouseManager\WarehouseManag
 E:\JavaProjects\Laby Backend\lab_backEnd\projekt\WarehouseManager\WarehouseManager\obj\Debug\net6.0\WarehouseManager.pdb
 E:\JavaProjects\Laby Backend\lab_backEnd\projekt\WarehouseManager\WarehouseManager\obj\Debug\net6.0\WarehouseManager.genruntimeconfig.cache
 E:\JavaProjects\Laby Backend\lab_backEnd\projekt\WarehouseManager\WarehouseManager\obj\Debug\net6.0\ref\WarehouseManager.dll
+E:\JavaProjects\Laby Backend\lab_backEnd\projekt\WarehouseManager\WarehouseManager\bin\Debug\net6.0\AutoMapper.dll
+E:\JavaProjects\Laby Backend\lab_backEnd\projekt\WarehouseManager\WarehouseManager\bin\Debug\net6.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll

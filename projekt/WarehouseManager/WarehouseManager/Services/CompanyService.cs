@@ -14,7 +14,7 @@ namespace WarehouseManager.Services
         bool Update(int id, UpdateCompanyDto dto);
     }
 
-    public class CompanyService
+    public class CompanyService : ICompanyService
     {
         private readonly WarehauseManagerDbContext _dbContext;
         private readonly IMapper _mapper;
