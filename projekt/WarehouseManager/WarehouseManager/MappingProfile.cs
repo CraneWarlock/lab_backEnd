@@ -1,6 +1,14 @@
-﻿namespace WarehouseManager
+﻿using AutoMapper;
+using WarehouseManager.Entites;
+using WarehouseManager.Models;
+
+namespace WarehouseManager
 {
-    public class MappingProfile
+    public class MappingProfile : Profile
     {
+        public MappingProfile()
+        {
+            CreateMap<Company, CompanyDto>();
+        }
     }
 }
