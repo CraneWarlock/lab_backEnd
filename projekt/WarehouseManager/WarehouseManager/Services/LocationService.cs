@@ -79,9 +79,9 @@ namespace WarehouseManager.Services
             return locationDto;
         }
 
-        public List<LocationDto> GetAll(int companyid)
+        public List<LocationDto> GetAll(int companyId)
         {
-            var company = GetCompanyById(companyid);
+            var company = GetCompanyById(companyId);
             var locationDtos = _mapper.Map<List<LocationDto>>(company.Locations);
             return locationDtos;
         }

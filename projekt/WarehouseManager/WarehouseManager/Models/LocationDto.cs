@@ -9,5 +9,6 @@
         public int CompanyId { get; set; }
 
         //TODO: List of warehouses
+       // public List<WarehouseDto> Warehouses { get; set; }
     }
 }

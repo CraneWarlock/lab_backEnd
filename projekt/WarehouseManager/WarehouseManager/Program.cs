@@ -12,6 +12,7 @@ builder.Services.AddDbContext<WarehauseManagerDbContext>();
 builder.Services.AddScoped<dbSeeder>();
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 builder.Services.AddScoped<ICompanyService, CompanyService>();
+builder.Services.AddScoped<ILocationService, LocationService>();
 
 var app = builder.Build();
 
