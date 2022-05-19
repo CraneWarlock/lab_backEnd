@@ -6,5 +6,7 @@
         public string LocationName { get; set; }
         public string Description { get; set; }
         public string Address { get; set; }
+        
+        //TODO: List of warehouses
     }
 }

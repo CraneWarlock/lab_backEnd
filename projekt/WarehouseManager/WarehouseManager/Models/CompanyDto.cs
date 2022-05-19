@@ -1,4 +1,6 @@
-﻿namespace WarehouseManager.Models
+﻿
+
+namespace WarehouseManager.Models
 {
     public class CompanyDto
     {
