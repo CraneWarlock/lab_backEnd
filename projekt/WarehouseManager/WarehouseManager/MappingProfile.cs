@@ -9,6 +9,7 @@ namespace WarehouseManager
         public MappingProfile()
         {
             CreateMap<Company, CompanyDto>();
+            CreateMap<Location, LocationDto>();
         }
     }
 }
