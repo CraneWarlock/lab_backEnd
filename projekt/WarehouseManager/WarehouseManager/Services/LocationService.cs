@@ -9,7 +9,7 @@ namespace WarehouseManager.Services
     {
         int Create(int companyId, CreateLocationDto dto);
         bool Update(int companyId, int locationId, UpdateLocationDto dto);
-        bool Delete(int companyId, int locationId, UpdateLocationDto dto);
+        bool Delete(int companyId, int locationId);
         LocationDto GetById(int companyId, int locationId);
         List<LocationDto> GetAll(int companyid);
     }
@@ -50,7 +50,7 @@ namespace WarehouseManager.Services
             return true;
         }
 
-        public bool Delete(int companyId, int locationId, UpdateLocationDto dto)
+        public bool Delete(int companyId, int locationId)
         {
             var company = GetCompanyById(companyId);
             if (company is null) return false;
