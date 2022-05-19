@@ -26,10 +26,41 @@ namespace WarehouseManager.Services
             return locationEntity.Id;
         }
 
+        public bool Update(int companyId, int locationId, UpdateLocationDto dto)
+        {
+            var company = GetCompanyById(companyId);
+            var location = _dbContext
+                .Locations
+                .FirstOrDefault(r => r.Id == locationId);
+            if(location is null) return false;
+
+            location.LocationName = dto.LocationName;
+            location.Description = dto.Description;
+            location.Address = dto.Address;
+            _dbContext.SaveChanges();
+            return true;
+        }
+
+        public bool Delete(int companyId, int locationId, UpdateLocationDto dto)
+        {
+            var company = GetCompanyById(companyId);
+            if (company is null) return false;
+            var location = _dbContext
+                .Locations
+                .FirstOrDefault(r => r.Id == locationId);
+            if (location is null) return false;
+
+            _dbContext.Locations.Remove(location);
+            _dbContext.SaveChanges();
+            return true;
+        }
+
         public LocationDto GetById(int companyId, int locationId)
         {
             var company = GetCompanyById(companyId);
-            var location = _dbContext.Locations.FirstOrDefault(d => d.Id == locationId);
+            var location = _dbContext
+                .Locations
+                .FirstOrDefault(d => d.Id == locationId);
             if(location is null || location.CompanyId != companyId)
             {
                 return null;
