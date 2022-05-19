@@ -44,7 +44,7 @@ namespace WarehouseManager.Controllers
         }
 
         [HttpDelete("{locationId}")]
-        public ActionResult Delete([FromRoute] int companyId, [FromRoute] int locationId,[FromBody] UpdateLocationDto dto)
+        public ActionResult Delete([FromRoute] int companyId, [FromRoute] int locationId)
         {
             _locationService.Delete(companyId, locationId);
             return NoContent();

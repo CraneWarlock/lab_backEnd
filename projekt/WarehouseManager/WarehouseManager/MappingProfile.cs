@@ -10,6 +10,8 @@ namespace WarehouseManager
         {
             CreateMap<Company, CompanyDto>();
             CreateMap<Location, LocationDto>();
+            CreateMap<CreateCompanyDto, Company>();
+            CreateMap<CreateLocationDto, Location>();
         }
     }
 }
