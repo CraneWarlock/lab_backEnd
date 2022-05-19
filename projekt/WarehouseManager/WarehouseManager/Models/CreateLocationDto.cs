@@ -12,6 +12,8 @@ namespace WarehouseManager.Models
         [Required]
         [MaxLength(50)]
         public string Address { get; set; }
+
+        [Required]
         public int CompanyId { get; set; }
     }
 }
