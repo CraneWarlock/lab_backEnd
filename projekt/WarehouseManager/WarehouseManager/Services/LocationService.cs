@@ -5,7 +5,16 @@ using WarehouseManager.Models;
 
 namespace WarehouseManager.Services
 {
-    public class LocationService
+    public interface ILocationService
+    {
+        int Create(int companyId, CreateLocationDto dto);
+        bool Update(int companyId, int locationId, UpdateLocationDto dto);
+        bool Delete(int companyId, int locationId, UpdateLocationDto dto);
+        LocationDto GetById(int companyId, int locationId);
+        List<LocationDto> GetAll(int companyid);
+    }
+
+    public class LocationService : ILocationService
     {
         private readonly WarehauseManagerDbContext _dbContext;
         private readonly IMapper _mapper;
