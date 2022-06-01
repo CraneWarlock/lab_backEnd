@@ -10,6 +10,6 @@ namespace WarehouseManager.Models
         public string Description { get; set; }
         public string Address { get; set; }
 
-       // public int CompanyId { get; set; }
+        // public int CompanyId { get; set; }
     }
 }
