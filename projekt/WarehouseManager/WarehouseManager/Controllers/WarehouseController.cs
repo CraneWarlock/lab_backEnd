@@ -18,6 +18,7 @@ namespace WarehouseManager.Controllers
         [HttpPost]
         public ActionResult Post([FromRoute] int companyId, [FromRoute] int locationId, [FromBody] CreateWarehouseDto dto)
         {
+            if (dto.CurrentCapacity > 0) return BadRequest();
             var newWarId = _warehouseService.Create(companyId, locationId, dto);
             return Created($"api/company/{companyId}/location/{locationId}/warehouse/{newWarId}", null);
         }

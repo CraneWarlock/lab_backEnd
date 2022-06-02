@@ -33,10 +33,7 @@ namespace WarehouseManager.Services
 
             //TODO: exception here
             if (dto.MaximumCapacity <= 0) return 0;
-            if (dto.CurrentCapacity != 0)
-            {
-                dto.CurrentCapacity = 0;
-            }
+          //  if (dto.CurrentCapacity >= 0) return 0;
 
             _dbContext.Warehouses.Add(warehouseEntity);
             _dbContext.SaveChanges();
