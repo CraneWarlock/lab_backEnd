@@ -5,7 +5,16 @@ using WarehouseManager.Models;
 
 namespace WarehouseManager.Services
 {
-    public class WarehouseService
+    public interface IWarehouseService
+    {
+        public int Create(int companyId, int locationId, CreateWarehouseDto dto);
+        public bool Update(int locationId, int warehouseId, UpdateWarehouseDto dto);
+        public bool Delete(int locationId, int warehouseId);
+        public WarehouseDto GetById(int locationId, int warehouseId);
+        public List<WarehouseDto> GetAll(int locationId);
+    }
+
+    public class WarehouseService : IWarehouseService
     {
         private readonly WarehauseManagerDbContext _dbContext;
         private readonly IMapper _mapper;
@@ -16,7 +25,7 @@ namespace WarehouseManager.Services
             _mapper = mapper;
         }
 
-        public int Create(int locationId, CreateWarehouseDto dto)
+        public int Create(int companyId, int locationId, CreateWarehouseDto dto)
         {
             var location = GetLocationById(locationId);
             var warehouseEntity = _mapper.Map<Warehouse>(dto);
@@ -24,7 +33,10 @@ namespace WarehouseManager.Services
 
             //TODO: exception here
             if (dto.MaximumCapacity <= 0) return 0;
-            if (dto.CurrentCapacity != 0) return 0;
+            if (dto.CurrentCapacity != 0)
+            {
+                dto.CurrentCapacity = 0;
+            }
 
             _dbContext.Warehouses.Add(warehouseEntity);
             _dbContext.SaveChanges();
