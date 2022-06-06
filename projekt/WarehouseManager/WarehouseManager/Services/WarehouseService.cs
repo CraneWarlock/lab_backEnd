@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using WarehouseManager.Entites;
+using WarehouseManager.Exceptions;
 using WarehouseManager.Models;
 
 namespace WarehouseManager.Services
@@ -8,8 +9,8 @@ namespace WarehouseManager.Services
     public interface IWarehouseService
     {
         public int Create(int companyId, int locationId, CreateWarehouseDto dto);
-        public bool Update(int locationId, int warehouseId, UpdateWarehouseDto dto);
-        public bool Delete(int locationId, int warehouseId);
+        public void Update(int locationId, int warehouseId, UpdateWarehouseDto dto);
+        public void Delete(int locationId, int warehouseId);
         public WarehouseDto GetById(int locationId, int warehouseId);
         public List<WarehouseDto> GetAll(int locationId);
     }
@@ -31,44 +32,47 @@ namespace WarehouseManager.Services
             var warehouseEntity = _mapper.Map<Warehouse>(dto);
             warehouseEntity.LocationId = locationId;
 
-            //TODO: exception here
-            if (dto.MaximumCapacity <= 0) return 0;
-          //  if (dto.CurrentCapacity >= 0) return 0;
+            
+            if (dto.CurrentCapacity > 0)
+                throw new BadRequestException("400 - Bad request\nCurrent capacity must be 0");
+            if (dto.MaximumCapacity <= 0) 
+                throw new BadRequestException("400 - Bad request\nMaximum capacity cannot be negative");
+            
 
             _dbContext.Warehouses.Add(warehouseEntity);
             _dbContext.SaveChanges();
             return warehouseEntity.Id;
         }
 
-        public bool Update(int locationId, int warehouseId, UpdateWarehouseDto dto)
+        public void Update(int locationId, int warehouseId, UpdateWarehouseDto dto)
         {
             var location = GetLocationById(locationId);
             var warehouse = _dbContext
                 .Warehouses
-                .FirstOrDefault(r => r.Id == locationId);
+                .FirstOrDefault(r => r.Id == warehouseId);
 
-            if (warehouse is null) return false;
-            if (dto.MaximumCapacity <= 0) return false;
+            if (warehouse is null) throw new NotFoundException("Warehouse not found");
+            if (dto.MaximumCapacity <= 0)
+                throw new BadRequestException("400 - Bad request\nMaximum capacity cannot be negative");
 
             warehouse.WarehouseName = dto.WarehouseName;
             warehouse.Description = dto.Description;
             warehouse.MaximumCapacity = dto.MaximumCapacity;
             _dbContext.SaveChanges();
-            return true;
         }
 
-        public bool Delete(int locationId, int warehouseId)
+        public void Delete(int locationId, int warehouseId)
         {
             var location = GetLocationById(locationId);
-            if (location is null) return false;
             var warehouse = _dbContext
                 .Warehouses
                 .FirstOrDefault(r => r.Id == warehouseId);
-            if (warehouse is null) return false;
+            if (warehouse is null) 
+                throw new NotFoundException("Warehouse not found");
 
             _dbContext.Warehouses.Remove(warehouse);
             _dbContext.SaveChanges();
-            return true;
+            
         }
 
         public WarehouseDto GetById(int locationId, int warehouseId)
@@ -77,7 +81,8 @@ namespace WarehouseManager.Services
             var warehouse = _dbContext
                 .Warehouses
                 .FirstOrDefault(r => r.Id == warehouseId);
-            if (warehouse is null || warehouse.LocationId != locationId) return null;
+            if (warehouse is null || warehouse.LocationId != locationId)
+                throw new NotFoundException("Warehouse not found");
 
             var warehouseDto = _mapper.Map<WarehouseDto>(warehouse);
             return warehouseDto;
@@ -96,7 +101,7 @@ namespace WarehouseManager.Services
                 .Locations
                 .Include(r => r.Warehouses)
                 .FirstOrDefault(r => r.Id == locationId);
-            if (location == null) return null;
+            if (location == null) throw new NotFoundException("Location not found");
             return location;
         }
 

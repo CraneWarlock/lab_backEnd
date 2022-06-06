@@ -1,6 +1,7 @@
 using System.Reflection;
 using WarehouseManager;
 using WarehouseManager.Entites;
+using WarehouseManager.Middleware;
 using WarehouseManager.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,6 +15,7 @@ builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 builder.Services.AddScoped<ICompanyService, CompanyService>();
 builder.Services.AddScoped<ILocationService, LocationService>();
 builder.Services.AddScoped<IWarehouseService, WarehouseService>();
+builder.Services.AddScoped<ErrorHandlingMiddleware>();
 
 var app = builder.Build();
 
@@ -24,6 +26,8 @@ using (var scope = app.Services.CreateScope())
     var seeder = scope.ServiceProvider.GetRequiredService<dbSeeder>();
     seeder.Seed();
 }
+
+app.UseMiddleware<ErrorHandlingMiddleware>();
 
 app.UseHttpsRedirection();
 

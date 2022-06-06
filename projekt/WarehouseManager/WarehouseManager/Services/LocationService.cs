@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using WarehouseManager.Entites;
+using WarehouseManager.Exceptions;
 using WarehouseManager.Models;
 
 namespace WarehouseManager.Services
@@ -8,8 +9,8 @@ namespace WarehouseManager.Services
     public interface ILocationService
     {
         int Create(int companyId, CreateLocationDto dto);
-        bool Update(int companyId, int locationId, UpdateLocationDto dto);
-        bool Delete(int companyId, int locationId);
+        void Update(int companyId, int locationId, UpdateLocationDto dto);
+        void Delete(int companyId, int locationId);
         LocationDto GetById(int companyId, int locationId);
         List<LocationDto> GetAll(int companyid);
     }
@@ -35,33 +36,28 @@ namespace WarehouseManager.Services
             return locationEntity.Id;
         }
 
-        public bool Update(int companyId, int locationId, UpdateLocationDto dto)
+        public void Update(int companyId, int locationId, UpdateLocationDto dto)
         {
             var company = GetCompanyById(companyId);
             var location = _dbContext
                 .Locations
                 .FirstOrDefault(r => r.Id == locationId);
-            if(location is null) return false;
-
+            if(location is null) throw new NotFoundException("Location not found");
             location.LocationName = dto.LocationName;
             location.Description = dto.Description;
             location.Address = dto.Address;
             _dbContext.SaveChanges();
-            return true;
         }
 
-        public bool Delete(int companyId, int locationId)
+        public void Delete(int companyId, int locationId)
         {
             var company = GetCompanyById(companyId);
-            if (company is null) return false;
             var location = _dbContext
                 .Locations
                 .FirstOrDefault(r => r.Id == locationId);
-            if (location is null) return false;
-
+            if (location is null) throw new NotFoundException("Location not found");
             _dbContext.Locations.Remove(location);
             _dbContext.SaveChanges();
-            return true;
         }
 
         public LocationDto GetById(int companyId, int locationId)
@@ -72,7 +68,7 @@ namespace WarehouseManager.Services
                 .FirstOrDefault(d => d.Id == locationId);
             if(location is null || location.CompanyId != companyId)
             {
-                return null;
+                if (location is null) throw new NotFoundException("Location not found");
             }
 
             var locationDto = _mapper.Map<LocationDto>(location);
@@ -92,7 +88,7 @@ namespace WarehouseManager.Services
                 .Companies
                 .Include(r => r.Locations)
                 .FirstOrDefault(r => r.Id == companyId);
-            if (company == null) return null;
+            if (company == null) throw new NotFoundException("Company not found");
             return company;
         }
 

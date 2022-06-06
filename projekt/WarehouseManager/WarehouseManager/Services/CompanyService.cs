@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using WarehouseManager.Entites;
+using WarehouseManager.Exceptions;
 using WarehouseManager.Models;
 
 namespace WarehouseManager.Services
@@ -10,8 +11,8 @@ namespace WarehouseManager.Services
         CompanyDto GetById(int id);
         IEnumerable<CompanyDto> GetAll();
         int Create(CreateCompanyDto dto);
-        bool Delete(int id);
-        bool Update(int id, UpdateCompanyDto dto);
+        void Delete(int id);
+        void Update(int id, UpdateCompanyDto dto);
     }
 
     public class CompanyService : ICompanyService
@@ -25,29 +26,26 @@ namespace WarehouseManager.Services
             _mapper = mapper;
         }
 
-        public bool Update(int id, UpdateCompanyDto dto)
+        public void Update(int id, UpdateCompanyDto dto)
         {
             var company = _dbContext
                 .Companies
                 .FirstOrDefault(r => r.Id == id);
-            if (company is null) return false;
-
+            if (company is null) throw new NotFoundException("Company not found");
             company.Name = dto.Name;
             company.Description = dto.Description;
             company.Address = dto.Address;
             _dbContext.SaveChanges();
-            return true;
         }
 
-        public bool Delete(int id)
+        public void Delete(int id)
         {
             var company = _dbContext
                 .Companies
                 .FirstOrDefault(r => r.Id == id);
-            if (company is null) return false;
+            if (company is null) throw new NotFoundException("Company not found");
             _dbContext.Companies.Remove(company);
             _dbContext.SaveChanges();
-            return true;
         }
 
         public CompanyDto GetById(int id)
@@ -56,7 +54,7 @@ namespace WarehouseManager.Services
                 .Companies
                 .Include(r => r.Locations)
                 .FirstOrDefault(r => r.Id == id);
-            if (company is null) return null;
+            if (company is null) throw new NotFoundException("Company not found");
             var result = _mapper.Map<CompanyDto>(company);
             return result;
         }
