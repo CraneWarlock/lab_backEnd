@@ -16,6 +16,9 @@ namespace WarehouseManager.Controllers
         }
 
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public ActionResult Post([FromRoute] int companyId, [FromRoute] int locationId, [FromRoute] int warehouseId,
             [FromBody] CreateWarehouseCargoDto dto)
         {
@@ -24,6 +27,8 @@ namespace WarehouseManager.Controllers
         }
 
         [HttpDelete("{warehouseCargoId}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult Delete([FromRoute] int companyId, [FromRoute] int locationId, [FromRoute] int warehouseId,
             [FromRoute] int cargoId)
         {
@@ -39,6 +44,8 @@ namespace WarehouseManager.Controllers
         }
 
         [HttpGet("{warehouseCargoId}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult<WarehouseCargoDto> Get([FromRoute] int companyId, [FromRoute] int locationId,
             [FromRoute] int warehouseId, [FromRoute] int warehouseCargoId)
         {

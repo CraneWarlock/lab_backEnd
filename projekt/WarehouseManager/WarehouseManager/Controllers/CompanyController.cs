@@ -16,6 +16,8 @@ namespace WarehouseManager.Controllers
         }
 
         [HttpPut("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult Update([FromBody] UpdateCompanyDto dto, [FromRoute] int id)
         {
             _companyService.Update(id, dto);
@@ -23,6 +25,8 @@ namespace WarehouseManager.Controllers
         }
 
         [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult Delete([FromRoute] int id)
         {
             _companyService.Delete(id);
@@ -30,6 +34,8 @@ namespace WarehouseManager.Controllers
         }
 
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult CreateCompany([FromBody] CreateCompanyDto dto)
         {
             var id = _companyService.Create(dto);
@@ -44,6 +50,8 @@ namespace WarehouseManager.Controllers
         }
 
         [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult<CompanyDto> Get([FromRoute] int id)
         {
             var company = _companyService.GetById(id);

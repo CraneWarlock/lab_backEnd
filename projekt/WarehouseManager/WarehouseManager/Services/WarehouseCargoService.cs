@@ -32,11 +32,10 @@ namespace WarehouseManager.Services
             var warehouse = GetWarehouseById(warehouseId);
             var warehouseCargoEntity = _mapper.Map<WarehouseCargo>(dto);
             warehouseCargoEntity.WarehouseId = warehouseId;
+            decimal toAdd = dto.Volume;
 
-            if (dto.Volume < 0) 
-                throw new BadRequestException("400 - Bad request\nVolume cannot be negative");
-
-
+            if (dto.Volume <= 0) 
+                throw new BadRequestException("400 - Bad request\nVolume cannot be negative or zero");
 
             if (warehouse.StorageType == StorageType.Hall &&
                 (dto.CargoType == CargoType.Liquid || dto.CargoType == CargoType.BulkMaterial))
@@ -61,7 +60,10 @@ namespace WarehouseManager.Services
                 throw new BadRequestException("400 - Bad request\nWrong type for the storage");
             }
 
-            decimal toAdd = dto.Volume;
+            if (warehouse.CurrentCapacity + toAdd > warehouse.MaximumCapacity)
+                throw new BadRequestException("400 - Bad request\nExceeds maximum capacity");
+
+
             warehouse.CurrentCapacity += toAdd;
             _dbContext.WarehouseCargoes.Add(warehouseCargoEntity);
             _dbContext.SaveChanges();
