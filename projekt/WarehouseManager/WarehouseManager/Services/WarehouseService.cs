@@ -33,13 +33,11 @@ namespace WarehouseManager.Services
             var warehouseEntity = _mapper.Map<Warehouse>(dto);
             warehouseEntity.LocationId = locationId;
 
-            
             if (dto.CurrentCapacity > 0)
                 throw new BadRequestException("400 - Bad request\nCurrent capacity must be 0");
             if (dto.MaximumCapacity <= 0) 
                 throw new BadRequestException("400 - Bad request\nMaximum capacity cannot be negative");
             
-
             _dbContext.Warehouses.Add(warehouseEntity);
             _dbContext.SaveChanges();
             return warehouseEntity.Id;

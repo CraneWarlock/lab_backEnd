@@ -15,6 +15,7 @@ builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 builder.Services.AddScoped<ICompanyService, CompanyService>();
 builder.Services.AddScoped<ILocationService, LocationService>();
 builder.Services.AddScoped<IWarehouseService, WarehouseService>();
+builder.Services.AddScoped<IWarehouseCargoService, WarehouseCargoService>();
 builder.Services.AddScoped<ErrorHandlingMiddleware>();
 
 var app = builder.Build();
