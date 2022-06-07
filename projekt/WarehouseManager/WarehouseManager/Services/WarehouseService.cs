@@ -9,8 +9,8 @@ namespace WarehouseManager.Services
     public interface IWarehouseService
     {
         public int Create(int companyId, int locationId, CreateWarehouseDto dto);
-        public void Update(int locationId, int warehouseId, UpdateWarehouseDto dto);
-        public void Delete(int locationId, int warehouseId);
+        public void Update(int companyId, int locationId, int warehouseId, UpdateWarehouseDto dto);
+        public void Delete(int companyId, int locationId, int warehouseId);
         public WarehouseDto GetById(int locationId, int warehouseId);
         public List<WarehouseDto> GetAll(int locationId);
     }
@@ -29,6 +29,7 @@ namespace WarehouseManager.Services
         public int Create(int companyId, int locationId, CreateWarehouseDto dto)
         {
             var location = GetLocationById(locationId);
+            var company = GetCompanyById(companyId);
             var warehouseEntity = _mapper.Map<Warehouse>(dto);
             warehouseEntity.LocationId = locationId;
 
@@ -44,9 +45,10 @@ namespace WarehouseManager.Services
             return warehouseEntity.Id;
         }
 
-        public void Update(int locationId, int warehouseId, UpdateWarehouseDto dto)
+        public void Update(int companyId, int locationId, int warehouseId, UpdateWarehouseDto dto)
         {
             var location = GetLocationById(locationId);
+            var company = GetCompanyById(companyId);
             var warehouse = _dbContext
                 .Warehouses
                 .FirstOrDefault(r => r.Id == warehouseId);
@@ -61,9 +63,10 @@ namespace WarehouseManager.Services
             _dbContext.SaveChanges();
         }
 
-        public void Delete(int locationId, int warehouseId)
+        public void Delete(int companyId, int locationId, int warehouseId)
         {
             var location = GetLocationById(locationId);
+            var company = GetCompanyById(companyId);
             var warehouse = _dbContext
                 .Warehouses
                 .FirstOrDefault(r => r.Id == warehouseId);
@@ -103,6 +106,16 @@ namespace WarehouseManager.Services
                 .FirstOrDefault(r => r.Id == locationId);
             if (location == null) throw new NotFoundException("Location not found");
             return location;
+        }
+
+        private Company GetCompanyById(int companyId)
+        {
+            var company = _dbContext
+                .Companies
+                .Include(r => r.Locations)
+                .FirstOrDefault(r => r.Id == companyId);
+            if (company == null) throw new NotFoundException("Company not found");
+            return company;
         }
 
     }

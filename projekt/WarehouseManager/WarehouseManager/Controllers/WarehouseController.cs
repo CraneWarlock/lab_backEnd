@@ -37,17 +37,17 @@ namespace WarehouseManager.Controllers
         }
 
         [HttpPut("{warehouseId}")]
-        public ActionResult Update([FromRoute] int locationId, [FromRoute] int warehouseId,
+        public ActionResult Update([FromRoute] int companyId, [FromRoute] int locationId, [FromRoute] int warehouseId,
             [FromBody] UpdateWarehouseDto dto)
         {
-            _warehouseService.Update(locationId, warehouseId, dto);
+            _warehouseService.Update(companyId, locationId, warehouseId, dto);
             return Ok();
         }
 
         [HttpDelete("{warehouseId}")]
-        public ActionResult Delete([FromRoute] int locationId, [FromRoute] int warehouseId)
+        public ActionResult Delete([FromRoute] int companyId, [FromRoute] int locationId, [FromRoute] int warehouseId)
         {
-            _warehouseService.Delete(locationId, warehouseId);
+            _warehouseService.Delete(companyId, locationId, warehouseId);
             return NoContent();
         }
     }
