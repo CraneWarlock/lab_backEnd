@@ -56,3 +56,8 @@ E:\JavaProjects\Laby Backend\lab_backEnd\projekt\WarehouseManager\WarehouseManag
 E:\JavaProjects\Laby Backend\lab_backEnd\projekt\WarehouseManager\WarehouseManager\obj\Debug\net6.0\ref\WarehouseManager.dll
 E:\JavaProjects\Laby Backend\lab_backEnd\projekt\WarehouseManager\WarehouseManager\bin\Debug\net6.0\AutoMapper.dll
 E:\JavaProjects\Laby Backend\lab_backEnd\projekt\WarehouseManager\WarehouseManager\bin\Debug\net6.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+E:\JavaProjects\Laby Backend\lab_backEnd\projekt\WarehouseManager\WarehouseManager\bin\Debug\net6.0\Microsoft.OpenApi.dll
+E:\JavaProjects\Laby Backend\lab_backEnd\projekt\WarehouseManager\WarehouseManager\bin\Debug\net6.0\Swashbuckle.AspNetCore.Swagger.dll
+E:\JavaProjects\Laby Backend\lab_backEnd\projekt\WarehouseManager\WarehouseManager\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+E:\JavaProjects\Laby Backend\lab_backEnd\projekt\WarehouseManager\WarehouseManager\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+E:\JavaProjects\Laby Backend\lab_backEnd\projekt\WarehouseManager\WarehouseManager\obj\Debug\net6.0\WarehouseManager.MvcApplicationPartsAssemblyInfo.cs

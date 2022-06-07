@@ -36,6 +36,8 @@ namespace WarehouseManager.Services
             if (dto.Volume < 0) 
                 throw new BadRequestException("400 - Bad request\nVolume cannot be negative");
 
+
+
             if (warehouse.StorageType == StorageType.Hall &&
                 (dto.CargoType == CargoType.Liquid || dto.CargoType == CargoType.BulkMaterial))
             {
