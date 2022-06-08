@@ -30,9 +30,9 @@ namespace WarehouseManager.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult Delete([FromRoute] int companyId, [FromRoute] int locationId, [FromRoute] int warehouseId,
-            [FromRoute] int cargoId)
+            [FromRoute] int warehouseCargoId)
         {
-            _warehouseCargoService.Delete(companyId, locationId, warehouseId, cargoId);
+            _warehouseCargoService.Delete(companyId, locationId, warehouseId, warehouseCargoId);
             return NoContent();
         }
 

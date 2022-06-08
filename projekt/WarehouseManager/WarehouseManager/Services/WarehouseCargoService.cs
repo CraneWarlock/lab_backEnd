@@ -60,6 +60,12 @@ namespace WarehouseManager.Services
                 throw new BadRequestException("400 - Bad request\nWrong type for the storage");
             }
 
+            if (warehouse.StorageType == StorageType.Silo &&
+                warehouse.WarehousesCargo.Exists(r => r.CargoName != dto.CargoName))
+            {
+                throw new BadRequestException("400 - Bad request\nDifferent cargo in silo");
+            }
+
             if (warehouse.CurrentCapacity + toAdd > warehouse.MaximumCapacity)
                 throw new BadRequestException("400 - Bad request\nExceeds maximum capacity");
 
