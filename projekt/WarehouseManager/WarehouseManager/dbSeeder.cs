@@ -1,14 +1,19 @@
-﻿using WarehouseManager.Entites;
+﻿using Microsoft.AspNetCore.Identity;
+using WarehouseManager.Entites;
 
 namespace WarehouseManager
 {
     public class dbSeeder
     {
         private readonly WarehauseManagerDbContext _dbContext;
+        private readonly IPasswordHasher<User> _passwordHasher;
+        private readonly AuthenticationSettings _authenticationSettings;
 
-        public dbSeeder(WarehauseManagerDbContext dbContext)
+        public dbSeeder(WarehauseManagerDbContext dbContext, IPasswordHasher<User> passwordHasher, AuthenticationSettings authenticationSettings)
         {
             _dbContext = dbContext;
+            _passwordHasher = passwordHasher;
+            _authenticationSettings = authenticationSettings;
         }
 
         public void Seed()
@@ -26,6 +31,13 @@ namespace WarehouseManager
                 _dbContext.Companies.AddRange(companies);
                 _dbContext.SaveChanges();
             }
+
+            if (!_dbContext.Users.Any())
+            {
+                var users = GetUsers();
+                _dbContext.Users.AddRange(users);
+                _dbContext.SaveChanges();
+            } 
         }
 
         private IEnumerable<Company> GetCompanies()
@@ -143,6 +155,23 @@ namespace WarehouseManager
             };
             return roles;
         }
+
+        private User GetUsers()
+        {
+            string pass = "123123";
+            var newUser = new User()
+            {
+                FirstName = "Admin",
+                LastName = "Account",
+                Email = "admin@admin.com",
+                Department = "IT god",
+                RoleId = 3
+            };
+            var hashedPassword = _passwordHasher.HashPassword(newUser, pass);
+            newUser.PasswordHash = hashedPassword;
+            return newUser;
+        }
+
 
     }
 }

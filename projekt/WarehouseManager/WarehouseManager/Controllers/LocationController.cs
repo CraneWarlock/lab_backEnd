@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using WarehouseManager.Models;
 using WarehouseManager.Services;
 
@@ -6,6 +7,7 @@ namespace WarehouseManager.Controllers
 {
     [Route("api/company/{companyId}/location")]
     [ApiController]
+    [Authorize]
     public class LocationController : ControllerBase
     {
         private readonly ILocationService _locationService;
@@ -18,6 +20,7 @@ namespace WarehouseManager.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [Authorize(Roles = "Admin,Manager")]
         public ActionResult Post([FromRoute] int companyId, [FromBody] CreateLocationDto dto)
         {
             var newLocId = _locationService.Create(companyId, dto);
@@ -43,6 +46,7 @@ namespace WarehouseManager.Controllers
         [HttpPut("{locationId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [Authorize(Roles = "Admin,Manager")]
         public ActionResult Update([FromRoute]int companyId,[FromRoute]int locationId, [FromBody]UpdateLocationDto dto)
         {
             _locationService.Update(companyId, locationId, dto);
@@ -52,6 +56,7 @@ namespace WarehouseManager.Controllers
         [HttpDelete("{locationId}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete([FromRoute] int companyId, [FromRoute] int locationId)
         {
             _locationService.Delete(companyId, locationId);

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using WarehouseManager.Models;
 using WarehouseManager.Services;
 
@@ -6,6 +7,7 @@ namespace WarehouseManager.Controllers
 {
     [Route("api/company")]
     [ApiController]
+    [Authorize]
     public class CompanyController : ControllerBase
     {
         private readonly ICompanyService _companyService;
@@ -18,6 +20,7 @@ namespace WarehouseManager.Controllers
         [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [Authorize(Roles = "Admin,Manager")]
         public ActionResult Update([FromBody] UpdateCompanyDto dto, [FromRoute] int id)
         {
             _companyService.Update(id, dto);
@@ -27,6 +30,7 @@ namespace WarehouseManager.Controllers
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete([FromRoute] int id)
         {
             _companyService.Delete(id);
@@ -36,6 +40,7 @@ namespace WarehouseManager.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [Authorize(Roles = "Admin,Manager")]
         public ActionResult CreateCompany([FromBody] CreateCompanyDto dto)
         {
             var id = _companyService.Create(dto);
@@ -52,6 +57,7 @@ namespace WarehouseManager.Controllers
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [AllowAnonymous]
         public ActionResult<CompanyDto> Get([FromRoute] int id)
         {
             var company = _companyService.GetById(id);

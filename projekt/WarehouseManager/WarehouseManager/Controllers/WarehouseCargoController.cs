@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using WarehouseManager.Models;
 using WarehouseManager.Services;
 
@@ -6,6 +7,7 @@ namespace WarehouseManager.Controllers
 {
     [Route("api/company/{companyId}/location/{locationId}/warehouse/{warehouseId}/warehouseCargo")]
     [ApiController]
+    [Authorize]
     public class WarehouseCargoController : ControllerBase
     {
         private readonly IWarehouseCargoService _warehouseCargoService;
