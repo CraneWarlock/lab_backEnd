@@ -1,14 +1,20 @@
 using System.Reflection;
+using FluentValidation;
+using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Identity;
 using WarehouseManager;
 using WarehouseManager.Entites;
 using WarehouseManager.Middleware;
+using WarehouseManager.Models;
+using WarehouseManager.Models.Validators;
 using WarehouseManager.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers();
+
+builder.Services.AddControllers().AddFluentValidation();
 builder.Services.AddDbContext<WarehauseManagerDbContext>();
 builder.Services.AddScoped<dbSeeder>();
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
@@ -16,7 +22,11 @@ builder.Services.AddScoped<ICompanyService, CompanyService>();
 builder.Services.AddScoped<ILocationService, LocationService>();
 builder.Services.AddScoped<IWarehouseService, WarehouseService>();
 builder.Services.AddScoped<IWarehouseCargoService, WarehouseCargoService>();
+builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<ErrorHandlingMiddleware>();
+builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
+builder.Services.AddScoped<IValidator<RegisterUserDto>, RegisterUserDtoValidator>();
+
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();

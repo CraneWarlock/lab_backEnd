@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WarehouseManager.Entites;
 
@@ -10,9 +11,10 @@ using WarehouseManager.Entites;
 namespace WarehouseManager.Migrations
 {
     [DbContext(typeof(WarehauseManagerDbContext))]
-    partial class WarehauseManagerDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220624184055_UserAndRoleAdd")]
+    partial class UserAndRoleAdd
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

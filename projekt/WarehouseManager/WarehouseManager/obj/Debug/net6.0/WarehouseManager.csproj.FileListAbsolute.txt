@@ -61,3 +61,6 @@ E:\JavaProjects\Laby Backend\lab_backEnd\projekt\WarehouseManager\WarehouseManag
 E:\JavaProjects\Laby Backend\lab_backEnd\projekt\WarehouseManager\WarehouseManager\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 E:\JavaProjects\Laby Backend\lab_backEnd\projekt\WarehouseManager\WarehouseManager\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerUI.dll
 E:\JavaProjects\Laby Backend\lab_backEnd\projekt\WarehouseManager\WarehouseManager\obj\Debug\net6.0\WarehouseManager.MvcApplicationPartsAssemblyInfo.cs
+E:\JavaProjects\Laby Backend\lab_backEnd\projekt\WarehouseManager\WarehouseManager\bin\Debug\net6.0\FluentValidation.dll
+E:\JavaProjects\Laby Backend\lab_backEnd\projekt\WarehouseManager\WarehouseManager\bin\Debug\net6.0\FluentValidation.AspNetCore.dll
+E:\JavaProjects\Laby Backend\lab_backEnd\projekt\WarehouseManager\WarehouseManager\bin\Debug\net6.0\FluentValidation.DependencyInjectionExtensions.dll

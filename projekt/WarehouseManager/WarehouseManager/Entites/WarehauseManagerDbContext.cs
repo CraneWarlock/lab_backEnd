@@ -11,9 +11,21 @@ namespace WarehouseManager.Entites
         public DbSet<Location> Locations { get; set; }
         public DbSet<Warehouse> Warehouses { get; set; }
         public DbSet<WarehouseCargo> WarehouseCargoes { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<Role> Roles { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            // User
+            modelBuilder.Entity<User>()
+                .Property(r => r.Email)
+                .IsRequired();
+
+            // Role
+            modelBuilder.Entity<Role>()
+                .Property(r => r.Name)
+                .IsRequired();
+
             // Company
             modelBuilder.Entity<Company>()
                 .Property(r => r.Name)
