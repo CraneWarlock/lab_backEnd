@@ -6,6 +6,9 @@ Aplikacja ma umożliwiać monitorowanie stanu zapełnienia magazynu, dodawanie i
 
 API napisane będzie w ASP.NET. 
 
+# API w usłudze AZURE:
+https://warehousemanager-api-app.azurewebsites.net/swagger/index.html
+
 # Harmonogram 
 1. Wykonanie modelu 'Company'
 2. Wykonanie modelu 'Location'
