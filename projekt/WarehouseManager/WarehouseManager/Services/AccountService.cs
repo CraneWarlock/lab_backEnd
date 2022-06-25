@@ -30,6 +30,11 @@ namespace WarehouseManager.Services
 
         public void RegisterUser(RegisterUserDto dto)
         {
+            if (dto.RoleId == 3)
+            {
+                throw new ForbidException("Cannot create admin");
+            }
+
             var newUser = new User()
             {
                 FirstName = dto.FirstName,
