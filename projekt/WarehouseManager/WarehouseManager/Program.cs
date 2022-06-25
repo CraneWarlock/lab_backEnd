@@ -3,6 +3,7 @@ using System.Text;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using WarehouseManager;
 using WarehouseManager.Entites;
@@ -41,7 +42,10 @@ builder.Services.AddAuthentication(option =>
 //
 
 builder.Services.AddControllers().AddFluentValidation();
-builder.Services.AddDbContext<WarehauseManagerDbContext>();
+
+// builder.Services.AddDbContext<WarehauseManagerDbContext>();
+
+
 builder.Services.AddScoped<dbSeeder>();
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 builder.Services.AddScoped<ICompanyService, CompanyService>();
@@ -54,6 +58,9 @@ builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
 builder.Services.AddScoped<IValidator<RegisterUserDto>, RegisterUserDtoValidator>();
 
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddDbContext<WarehauseManagerDbContext>
+    (options => options.UseSqlServer(builder.Configuration.GetConnectionString("WHMdbConnection")));
 
 var app = builder.Build();
 

@@ -4,8 +4,13 @@ namespace WarehouseManager.Entites
 {
     public class WarehauseManagerDbContext : DbContext
     {
-        private string _dbConnectionString =
-            "Server=(localdb)\\mssqllocaldb;Database=WarehouseManagerDb;Trusted_Connection=True;";
+     /*   private string _dbConnectionString =
+            "Server=(localdb)\\mssqllocaldb;Database=WarehouseManagerDb;Trusted_Connection=True;";*/
+
+     public WarehauseManagerDbContext(DbContextOptions<WarehauseManagerDbContext> options) : base(options)
+     {
+         
+     }
 
         public DbSet<Company> Companies { get; set; }
         public DbSet<Location> Locations { get; set; }
@@ -85,9 +90,9 @@ namespace WarehouseManager.Entites
                 .IsRequired();
         }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+       /* protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(_dbConnectionString);
-        }
+        }*/
     }
 }

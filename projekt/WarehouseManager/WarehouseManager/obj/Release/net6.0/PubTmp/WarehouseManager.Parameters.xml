@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="IIS Web Application Name" description="" value="warehousemanager-api-app" tags="IisApp">
+    <parameterEntry kind="ProviderPath" scope="IisApp" match="^E:\\JavaProjects\\Laby\ Backend\\lab_backEnd\\projekt\\WarehouseManager\\WarehouseManager\\obj\\Release\\net6\.0\\PubTmp\\Out\\$" />
+  </parameter>
+</parameters>

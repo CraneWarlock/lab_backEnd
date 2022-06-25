@@ -17,6 +17,7 @@ namespace WarehouseManager
             CreateMap<CreateLocationDto, Location>();
             CreateMap<CreateWarehouseDto, Warehouse>();
             CreateMap<CreateWarehouseCargoDto, WarehouseCargo>();
+
         }
     }
 }
