@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Query.Internal;
 using WarehouseManager.Models;
 using WarehouseManager.Services;
@@ -27,6 +28,14 @@ namespace WarehouseManager.Controllers
         {
             string token = _accountService.GenerateJwt(dto);
             return Ok(token);
+        }
+
+        [HttpPut("{userId}")]
+        [Authorize(Roles = "Admin")]
+        public ActionResult Update([FromRoute] int userId, [FromBody] UpdateUserDto dto)
+        {
+            _accountService.Update(userId, dto);
+            return Ok();
         }
     }
 }

@@ -14,6 +14,7 @@ namespace WarehouseManager.Services
     {
         void RegisterUser(RegisterUserDto dto);
         string GenerateJwt(LoginDto dto);
+        public void Update(int userId, UpdateUserDto dto);
     }
 
     public class AccountService : IAccountService
@@ -30,9 +31,9 @@ namespace WarehouseManager.Services
 
         public void RegisterUser(RegisterUserDto dto)
         {
-            if (dto.RoleId == 3)
+            if (dto.RoleId != 1)
             {
-                throw new ForbidException("Cannot create admin");
+                throw new ForbidException("Wrong role");
             }
 
             var newUser = new User()
@@ -47,6 +48,20 @@ namespace WarehouseManager.Services
             var hashedPassword = _passwordHasher.HashPassword(newUser, dto.Password);
             newUser.PasswordHash = hashedPassword;
             _context.Users.Add(newUser);
+            _context.SaveChanges();
+        }
+
+        public void Update(int userId, UpdateUserDto dto)
+        {
+            var user = _context
+                .Users
+                .FirstOrDefault(u => u.Id == userId);
+            if (user == null) throw new NotFoundException("User not found");
+            user.FirstName = dto.FirstName;
+            user.LastName = dto.LastName;
+            user.Email = dto.Email;
+            user.Department = dto.Department;
+            user.RoleId = dto.RoleId;
             _context.SaveChanges();
         }
 
